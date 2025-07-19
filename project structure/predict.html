@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pollen Classification - Predict</title>
+  <style>
+        body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #2c3e50;
+    }
+
+    header {
+      background: linear-gradient(to right, #512da8, #303f9f);
+      padding: 12px 25px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    nav a {
+      color: #d1c4e9;
+      margin-left: 18px;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -3px;
+      left: 0;
+      background-color: #d1c4e9;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .main-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 35px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card-header h2 {
+      font-size: 32px;
+      color: #5e35b1;
+      margin-bottom: 10px;
+    }
+
+    .card-header p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .file-upload-wrapper {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      margin-top: 12px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .file-name {
+      font-style: italic;
+      font-size: 14px;
+      color: #555;
+      margin-top: 8px;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      max-height: 320px;
+      margin-top: 18px;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    }
+
+    .submit-button {
+      background: linear-gradient(to right, #388e3c, #2e7d32);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .submit-button:hover {
+      background: #1b5e20;
+    }
+
+    .loading {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: 500;
+      color: #666;
+    }
+
+    .result-section {
+      margin-top: 30px;
+      background-color: #ede7f6;
+      padding: 22px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .species {
+      font-size: 24px;
+      font-weight: bold;
+      color: #4caf50;
+    }
+
+    .confidence {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .nav-links {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #3949ab;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: #1a237e;
+    }
+    .button-wrapper {
+       display: flex;
+       justify-content: center;
+       margin-top: 20px;
+    }
+
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 22px;
+      }
+
+      nav a {
+        margin: 10px 5px;
+      }
+
+      .card-header h2 {
+        font-size: 26px;
+      }
+
+      .submit-button {
+        padding: 10px 20px;
+      }
+
+      .image-preview img {
+        max-height: 250px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pollen Grain Classification</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/predict">Classify</a>
+      <a href="/#about">About</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="main-card">
+      <div class="card-header">
+        <h2>🔬 Pollen Classification</h2>
+        <p>Upload a pollen grain image to identify its species</p>
+      </div>
+
+      <form method="POST" enctype="multipart/form-data" id="uploadForm">
+  <div class="file-upload-wrapper">
+    <label for="fileInput"><strong>Select Image:</strong></label><br />
+    <input type="file" name="image" accept="image/*" required id="fileInput">
+    <div class="file-name" id="fileName"></div>
+    <div class="image-preview" id="imagePreview">
+      <img id="previewImg" src="" alt="Preview">
+    </div>
+  </div>
+
+  <!-- 👇 Button now centered -->
+  <div class="button-wrapper">
+    <button type="submit" class="submit-button" id="submitBtn" disabled>🚀 Classify Pollen</button>
+  </div>
+
+  <div class="loading" id="loading" style="display: none;">
+    <p>Analyzing image...</p>
+  </div>
+</form>
+
+
+      {% if prediction and image_path %}
+      <div class="result-section" id="resultSection">
+        <div class="species">🌿 {{ prediction }}</div>
+        {% if confidence %}
+        <div class="confidence">Confidence: {{ '%.2f' % confidence }}%</div>
+        {% else %}
+        <div class="confidence">Confidence: Not Available</div>
+        {% endif %}
+        <div style="margin-top: 15px;">
+          <img src="{{ url_for('static', filename='uploads/' + image_path) }}" alt="Uploaded Image" style="max-width: 100%; border-radius: 8px;" />
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="nav-links">
+        <a href="/">🏠 Home</a>
+        <a href="/predict">🔄 New Classification</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const fileName = document.getElementById('fileName');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewImg = document.getElementById('previewImg');
+    const submitBtn = document.getElementById('submitBtn');
+    const loading = document.getElementById('loading');
+
+    fileInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        fileName.textContent = `Selected: ${file.name}`;
+        fileName.style.display = 'block';
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImg.src = e.target.result;
+          imagePreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+        submitBtn.disabled = false;
+      } else {
+        fileName.style.display = 'none';
+        imagePreview.style.display = 'none';
+        submitBtn.disabled = true;
+      }
+    });
+
+    document.getElementById('uploadForm').addEventListener('submit', function (e) {
+      if (!fileInput.files.length) {
+        e.preventDefault();
+        alert('Please select an image.');
+      } else {
+        submitBtn.style.display = 'none';
+        loading.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

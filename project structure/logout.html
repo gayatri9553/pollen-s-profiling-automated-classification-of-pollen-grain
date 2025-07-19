@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Logout</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      text-align: center;
+      color: #333;
+    }
+
+    header {
+      background-color: #EE82EE;
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    nav a {
+      color: red;
+      margin-left: 15px;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: red;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .logout-section {
+      background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                        url("{{ url_for('static', filename='xbee.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 120px 20px;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logout-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+
+    .logout-section a {
+      background-color: #007C80;
+      color: white;
+      padding: 10px 25px;
+      font-size: 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .logout-section a:hover {
+      background-color: #005f61;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pollen Grain Classification</h1>
+    <nav>
+      <a href="/">About</a>
+      <a href="#">Contact</a>
+      <a href="/predict">Prediction</a>
+    </nav>
+  </header>
+
+  <div class="logout-section">
+    <h2>You have successfully logged out.</h2>
+    <a href="/">Back to Home</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Pollen Grain Classification. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

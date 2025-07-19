@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pollen Grain Classification</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fdfaf6;
+      color: #2e3c3c;
+    }
+
+    header {
+      background: linear-gradient(to right, #512da8, #283593);
+      padding: 15px 25px;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    nav a {
+      color: #c5cae9;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #c5cae9;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hero {
+      background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("{{ url_for('static', filename='xbee.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      text-align: center;
+      padding: 130px 60px;
+    }
+
+    .hero h2 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+    }
+
+    .hero p {
+      font-size: 19px;
+      margin-top: 15px;
+      line-height: 1.7;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .about {
+      text-align: center;
+      padding: 60px 25px;
+      background-color: #f3e5f5;
+      color: #3e3e3e;
+      margin: 40px auto;
+      max-width: 900px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .about h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #6a1b9a;
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: 0 auto 15px auto;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    footer {
+      background-color: #1a237e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 26px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Pollen Grain Classification</h1>
+    <nav>
+      <a href="/">About</a>
+      <a href="#">Contact</a>
+      <a href="/predict">Prediction</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Predict Pollen Grain Types</h2>
+      <p>
+        Empowering botanists and researchers by enabling accurate classification of pollen grains through AI-driven image analysis.
+      </p>
+    </section>
+
+    <section class="about" id="about">
+      <h2>ABOUT US</h2>
+      <p><strong>Pollen Profiling Project:</strong> Simplifying Pollen Grain Identification</p>
+      <p>Our web-based tool leverages machine learning to automatically classify pollen grain images. It streamlines microscopic analysis, saves time, and improves precision for educational and scientific research.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Pollen Grain Classification. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
